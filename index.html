@@ -308,6 +308,12 @@ function render(){
             + '<p class="qt">'+(it.q ? esc(it.q) : '')
             + (it.w ? '<span class="wtag">written</span>' : '') + '</p>'
             + (it.marks ? '<span class="marks">'+markTxt(it.marks)+'</span>' : '')
+            /* ⚠ CLOSE THE HEAD. It is a flex row, so anything left inside it
+               becomes a flex item: the options were being laid out BESIDE the
+               question number instead of under it, sized to their own longest
+               line, which is why short numeric answers sat in a narrow block
+               floated to the right and long ones did not. */
+            + '</div>'
             + (it.f != null ? '<figure><img src="'+FIGS[it.f]+'" alt="diagram for question '+it.id+'"></figure>' : '')
             + '<div id="i'+it.id+'">' + optsHTML(it) + '</div>';
     }
