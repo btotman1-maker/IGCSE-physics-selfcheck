@@ -371,11 +371,6 @@ document.addEventListener("click", e => {
   if(e.target.id === "copy"){
     copy(document.getElementById("cd").textContent, e.target, "Copy code"); return;
   }
-  if(e.target.id === "copyall"){
-    copy(document.getElementById("cd").textContent + "  " + document.getElementById("ln").textContent,
-         e.target, "Copy code and summary");
-    return;
-  }
   if(e.target.id === "bankcopy"){
     copy(bankText(), e.target, "Copy all my codes"); return;
   }
@@ -548,9 +543,12 @@ function check(silent){
     + '<div class="code" id="cd">' + code + '</div>'
     + '<p class="line" id="ln">' + esc(bits.join(" · ")) + '</p>'
     + '<div class="tools">'
-    + (FORM ? '<button class="go" id="send">' + SENDLABEL + '</button>' : '')
-    + '<button class="mini" id="copy">Copy code</button>'
-    + '<button class="mini" id="copyall">Copy code and summary</button></div>'
+    /* ⭐ ONE BUTTON, ONE ROUTE. With a form link there is exactly one thing to
+       press, so nobody submits by pasting into the wrong place and nobody has to
+       be told which button is the real one. The copy button appears only when
+       there is no form to send to, because then it is the only way out. */
+    + (FORM ? '<button class="go" id="send">' + SENDLABEL + '</button>'
+            : '<button class="mini" id="copy">Copy code</button>') + '</div>'
     + '<p class="hint">' + (!FORM
         ? 'Paste the code into the class form as your record for this section.'
         : PREFILLS
